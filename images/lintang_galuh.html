@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lintang & Galuh</title>
+    <link rel="icon" type="image/png" href="../assets/img/icon.png">
+    <script>
+        // Break out iframe on iOS cause safari expand iframe to fit the content, thus making
+        // the lightbox bigger than the browser window.
+        // We need to check for MSStream because Microsoft injected the word iPhone in IE11's userAgent therefore we need to exclude it.
+        var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        if (iOS && top.location != self.location) {
+            top.location = self.location.href;
+        }
+    </script>
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css" type="text/css">
+
+    <!-- Custom Fonts -->
+    <link
+        href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+        rel='stylesheet' type='text/css'>
+    <link
+        href='http://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic'
+        rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="../assets/font-awesome/css/font-awesome.min.css" type="text/css">
+
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="../assets/css/animate.min.css" type="text/css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/creative.css" type="text/css">
+</head>
+
+<body>
+    <style>
+        .lightbox-images2 .wowbook-book-container {
+            background: #6d6b92;
+            /* Old browsers */
+            background: -moz-radial-gradient(center, ellipse cover, #ffffff 0%, #050505 100%);
+            /* FF3.6-15 */
+            background: -webkit-radial-gradient(center, ellipse cover, #ffffff 0%, #050505 100%);
+            /* Chrome10-25,Safari5.1-6 */
+            background: radial-gradient(ellipse at center, #ffffff 0%, #050505 100%);
+            /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        }
+    </style>
+    <div id='page1'></div>
+
+
+    <!-- jQuery -->
+    <script src="../assets/js/jquery.js"></script>
+    <script>
+        imageBook = ["1", "8"][Math.floor(Math.random() * 2)];
+        imageBookPath = "../assets/img/lintang_galuh";
+        $("#book1-trigger .book-thumb").attr("src", imageBookPath + "/image_000.jpg")
+    </script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../assets/js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="../assets/js/jquery.easing.min.js"></script>
+    <script src="../assets/js/jquery.fittext.js"></script>
+    <script src="../assets/js/wow.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <!-- <script src="js/creative.js"></script> -->
+
+    <link rel="stylesheet" href="./../assets/wow_book/wow_book.css" type="text/css" />
+    <style>
+        .wowbook-right .wowbook-gutter-shadow {
+            background-image: url("../assets/img/page_right_background.png");
+            background-position: 0 0;
+            width: 75px;
+        }
+
+        .wowbook-left .wowbook-gutter-shadow {
+            background-image: url("../assets/img/page_left_background.png");
+            opacity: 0.5;
+            width: 60px;
+        }
+
+        .wowbook-control-currentPage {
+            font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+        }
+    </style>
+    <script type="text/javascript" src="./../assets/wow_book/pdf.combined.min.js"></script>
+    <script type="text/javascript" src="./../assets/wow_book/wow_book.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+
+            function fullscreenErrorHandler() {
+                if (self != top)
+                    return "The frame is blocking full screen mode. Click on 'remove frame' button above and try to go full screen again."
+            }
+
+            // imageBook = ["1", "8"][ Math.floor(Math.random()*2)];
+            // imageBookPath = "./img/magazine_template_0"+imageBook+"/";
+            // $("#book1-trigger .book-thumb").attr("src", imageBookPath+"image_000.jpg")
+
+            var optionsBook1 = {
+                height: 1056,
+                width: 816 * 2
+                    // ,maxWidth : 800
+                    // ,maxHeight : 800
+                    ,
+                pageCount: 6,
+                images: imageBookPath + "/image_{{xxx}}.jpg",
+                lightbox: "#book1-trigger",
+                lightboxClass: "lightbox-images" + (imageBook == "1" ? "1" : "2"),
+                centeredWhenClosed: true,
+                hardcovers: true,
+                style: "wowbook-cs-white",
+                toolbar: "lastLeft, left, currentPage, right, lastRight, zoomin, zoomout, slideshow, flipsound, fullscreen, thumbnails",
+                thumbnailsPosition: 'bottom',
+                thumbnailScale: 0.12,
+                thumbnailsSprite: imageBookPath + "/thumbnails_sprite_0.12.jpg",
+                perspective: 4000,
+                responsiveHandleWidth: 50,
+                onFullscreenError: fullscreenErrorHandler,
+                flipSoundPath: "../assets/wow_book/sound/"
+            };
+
+
+
+            var books = {
+                "#page1": optionsBook1,
+            };
+            // $("#page1-trigger").on("click", function () {
+            //     buildBook("#" + this.id.replace("-trigger", ""));
+            //     console.log(this.id);
+            // })
+            buildBook("#page1");
+
+
+            function buildBook(elem) {
+
+                console.log(elem);
+                var book = $.wowBook(elem);
+                if (!book) {
+                    $(elem).wowBook(books[elem]);
+                    book = $.wowBook(elem);
+                }
+                // book.opts.onHideLightbox = function(){
+                //     setTimeout( function(){ book.destroy(); }, 1000);
+                // }
+                book.showLightbox();
+                $(".wowbook-close").remove();
+
+            }
+
+
+        });
+    </script>
+</body>
+
+</html>
