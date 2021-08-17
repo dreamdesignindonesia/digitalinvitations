@@ -1,3 +1,3 @@
 .gitignore
 # ignore all logs
-*.test
+*.test*
